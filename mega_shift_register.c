@@ -3,6 +3,10 @@
  *
  * Created: 17/12/2014 16:47:24
  *  Author: Pedro
+ * pin 10 of 74595 to vcc and 13 to gnd
+ * 
+ *   		< Mt 6:34 >
+ *
  */ 
 
 #define F_CPU 16000000UL
