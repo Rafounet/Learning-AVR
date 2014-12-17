@@ -11,7 +11,7 @@
 
 bool up9, up10, up11;
 uint8_t pin9 = 0;
-uint8_t pin10 = 1;
+uint8_t pin10 = 85;
 uint8_t pin11 = 170;
 void setPWM(unsigned pin9, unsigned pin10, unsigned pin11){
 		OCR1A = pin9;
