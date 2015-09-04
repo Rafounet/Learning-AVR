@@ -22,10 +22,10 @@ int main (void) {
 	DDRB |= led;
 	cli(); // Disable interrupts
 	UBRR0H = (MYUBRR >> 8);  // Set baud rate
-   UBRR0L = MYUBRR;			 // ||   ||   ||
+  UBRR0L = MYUBRR;			 // ||   ||   ||
    
-   UCSR0B |= _BV(RXEN0) | _BV(TXEN0); // Enable USART receiver and transmitter
-   UCSR0C |= _BV(UCSZ01) | _BV(UCSZ00); // Set frame: 8data, 1stop bit
+  UCSR0B |= _BV(RXEN0) | _BV(TXEN0); // Enable USART receiver and transmitter
+  UCSR0C |= _BV(UCSZ01) | _BV(UCSZ00); // Set frame: 8data, 1stop bit
 	UCSR0B |= _BV(RXCIE0); // Enable RX interrupt
 	sei(); // Enable interrupts
    while(1){} 
@@ -36,12 +36,12 @@ ISR (USART_RX_vect){ // Receive interrupt
 	if(rx==0x31){ // if rx = "1"
    	send_string("on");
    	send_char(0xa); // New line
-   	PORTB |= led; // Turn-on PB5
+   	PORTB |= led; // Turn on PB5
    }
    else if(rx==0x30){ // if rx = "0"
    	send_string("off");
    	send_char(0xa); // New line
-   	PORTB &= ~led; // Turn-off PB5
+   	PORTB &= ~led; // Turn off PB5
    }
 }
 
