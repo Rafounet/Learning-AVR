@@ -3,6 +3,12 @@
  *
  * Created: 17/12/2014 16:47:24
  *  Author: Pedro
+<<<<<<< HEAD
+=======
+ * Update:  13/08/2015 00:05:30
+ *
+ * Exodus 15:18
+>>>>>>> 34376f87f1212cef87efec8217a25947f22fde8f
  */ 
 #define F_CPU 16000000
 #include <avr/io.h>
@@ -22,7 +28,11 @@ uint8_t h;
 
 int main(void){
 	DDRB |= CLOCK | DATA | LATCH | working;
+<<<<<<< HEAD
 	PORTB |= working;
+=======
+	PORTB |= working; // For put high !MR pin 10 on 595.
+>>>>>>> 34376f87f1212cef87efec8217a25947f22fde8f
     while(1){
 		for(h=0;h<255;h++){
 			send_byte(bytes);
