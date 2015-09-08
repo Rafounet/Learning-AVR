@@ -14,7 +14,7 @@ void usart_init();
 void adc_init();
 void send_char(char c);
 
-volatile uint8_t adcl, adch; // Variáveis para armazenas os 10 bits do ADC.
+volatile uint8_t adcl, adch; // Variáveis para armazenar os 10 bits do ADC.
 
 int main (void) {
 	DDRB |= led; // Está ai. Não é necessário mais.
@@ -60,10 +60,10 @@ void adc_init(void){
 
 void usart_init(void){
 	UBRR0H = (MYUBRR >> 8); // Configura o BAUD rate.
-   UBRR0L = MYUBRR;			//		||		 ||		||
-   
-   UCSR0B |= _BV(RXEN0) | _BV(TXEN0); // Habilita o TX e o RX da serial.
-   UCSR0C |= _BV(UCSZ01) | _BV(UCSZ00); // Define a comunicação como 1 byte, 1 stop bit.
+	UBRR0L = MYUBRR;	//	|| ||	||
+
+	UCSR0B |= _BV(RXEN0) | _BV(TXEN0); // Habilita o TX e o RX da serial.
+	UCSR0C |= _BV(UCSZ01) | _BV(UCSZ00); // Define a comunicação como 1 byte, 1 stop bit.
 	UCSR0B |= _BV(RXCIE0); // Habilita as interrupções causadas pelo RX.
 }
 
