@@ -1,3 +1,9 @@
+/* Pedro Vinicius
+ * Last update 02/10/2015
+ * gps.c
+*/
+
+
 #define F_CPU 8000000
 
 #include <avr/io.h>
@@ -8,15 +14,13 @@
 #define BAUD 38400
 #define MYUBRR F_CPU/BAUD/16 -1
 
-void USART_Transmit(unsigned char data);
 void USART_Init(unsigned int ubrr);
 
 unsigned char usart_receive(void);
 
 void get_GPGGA(void);
-void get_GPVTG(void);
 
-uint8_t GPGGA_lock, gps_temp, count_j, latitude_n_s, longitude_w_e;
+uint8_t GPGGA_lock, gps_temp, count_j, count_k, latitude_n_s, longitude_w_e;
 
 uint8_t gps_time[10], latitude[10], longitude[10], sat_numb[5], DOP[5], alt[8];
 
@@ -26,47 +30,44 @@ int main (void) {
 	cli();
 	lcd_init(LCD_DISP_ON_CURSOR);
 	USART_Init(MYUBRR);
-	TCCR1A |= (1 << COM1B1);
-	TCCR1B |= (1 << WGM13) | (1 << CS10);
-	ICR1 = 1000;
-	OCR1B = 0;
 	sei();
 	lcd_clrscr();
+	
 	while(1){
 		
-		get_GPGGA();
-		
-		// #1
-		
-		// TIME /*
-		for(count_j=0;count_j<=1;count_j++){
-			lcd_putc(gps_time[count_j]);
+		for(count_k=0;count_k<=40;count_k++){
+			get_GPGGA();
+			// #1
+			
+			// TIME /*
+			lcd_gotoxy(0,0);
+			for(count_j=0;count_j<=1;count_j++){
+				lcd_putc(gps_time[count_j]);
+			}
+			lcd_putc(':');
+			
+			for(count_j=2;count_j<=3;count_j++){
+				lcd_putc(gps_time[count_j]);
+			}
+			lcd_putc(':');
+	
+			for(count_j=4;count_j<=9;count_j++){
+				lcd_putc(gps_time[count_j]);
+			}
+			
+			lcd_puts(" GMT");
+			// TIME */
+			
+			lcd_gotoxy(0,1);
+			
+			lcd_puts("SATELITES: ");
+			for(count_j=0;sat_numb[count_j]!=',';count_j++){
+				lcd_putc(sat_numb[count_j]);
+			}
+			_delay_ms(25);
 		}
-		lcd_putc(':');
-		
-		for(count_j=2;count_j<=3;count_j++){
-			lcd_putc(gps_time[count_j]);
-		}
-		lcd_putc(':');
-
-		for(count_j=4;count_j<=9;count_j++){
-			lcd_putc(gps_time[count_j]);
-		}
-		
-		lcd_puts(" GMT");
-		// TIME */
-		
-		lcd_gotoxy(0,1);
-		
-		lcd_puts("SATELITES: ");
-		for(count_j=0;sat_numb[count_j]!=',';count_j++){
-			lcd_putc(sat_numb[count_j]);
-		}
-		_delay_ms(4500);
-		lcd_clrscr();
-		
 		// #2
-		
+		lcd_clrscr();
 		for(count_j=0;count_j<=1;count_j++){
 			lcd_putc(latitude[count_j]);
 		}
@@ -108,6 +109,8 @@ int main (void) {
 		for(count_j=0;alt[count_j]!=',';count_j++){
 			lcd_putc(alt[count_j]);
 		}
+		lcd_gotoxy(10,1);
+		lcd_puts("metros");
 		
 		_delay_ms(2500);
 		lcd_clrscr();
@@ -205,9 +208,4 @@ void USART_Init( unsigned int ubrr){
 
 	UCSRB |= (1<<RXEN)|(1<<TXEN);
 	UCSRC |= (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);
-}
-
-void USART_Transmit( unsigned char data ){
-	while ( !( UCSRA & (1<<UDRE)) );
-	UDR = data;
 }
