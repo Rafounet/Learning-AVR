@@ -1,3 +1,27 @@
+/*
+ * main.c
+ *
+ * Autor: Pedro Vinicius
+ * Última modificação: 07/03/2016	22:17
+ * 
+ * ######### Aquivo principal #########
+ *
+ * Código para o ATMega32 com clock de 8MHz
+ *
+ * Estou usando um sensor hc-sr04 para medir a distância entre o veículo
+ * e os obstáculos. Também estou usando um módulo bluetooth hc-06 para 
+ * realizar a comunicação com o computador.
+ * 
+ *
+ * No momento os caracteres usados são w,a,s,d,x,c e f. Onde:
+ *	w = move para frente
+ *	s = freia/vai para trás
+ *	a = vira para a esquerda
+ *	d = vira para a direita
+ *	x = "centraliza" o PWM do ESC em 7,5%. Valor que seria enviado com o stick no meio
+ *	c = faz o mesmo que 'x', mas para o servo que controla a direção.
+ *	f = Ativa o modo "autonomo". Por enquanto só se afasta ou se aproxima dos obstáculos
+ */
 #define F_CPU 8000000UL
 
 #include <avr/io.h>

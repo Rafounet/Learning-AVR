@@ -1,3 +1,12 @@
+/*
+ * carrinho.c
+ * Autor: Pedro Vinicius
+ * Última modificação: 07/03/2016	22:17
+ * 
+ * ######### Funções do projeto #########
+ *
+ *
+ */
 #include <avr/io.h>
 #include "carrinho.h"
 

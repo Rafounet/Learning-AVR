@@ -1,9 +1,17 @@
+/*
+ * carrinho.h
+ * Autor: Pedro Vinicius
+ * Última modificação: 07/03/2016	22:17
+ * 
+ * ######### Funções do projeto #########
+ *
+ *
+ */
+
 #ifndef CARRINHO_H_INCLUDED
 #define CARRINHO_H_INCLUDED
-/*
-	Funcões do projeto.
- */
-/*
+
+/*	Não estou usando mais.
 #define forward		1
 #define backward	2
 #define fbreak		3
